@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+%\VignetteIndexEntry{Moran's I}
+%\VignettePackage{ape}
+\usepackage{fancyvrb}
+\usepackage{color}
+
+\newcommand{\code}{\texttt}
+\newcommand{\pkg}{\textsf}
+\newcommand{\ape}{\pkg{ape}}
+\newcommand{\phylobench}{\pkg{phylobench}}
+
+\author{Emmanuel Paradis}
+\title{Phylogenetic Benchmarks With \phylobench}
+
+\begin{document}
+
+\maketitle
+
+<<echo=false,quiet=true>>=
+options(width=60)
+@
+
+\section{Structure of the Package}
+
+The package \phylobench\ has four functions:
+
+\begin{itemize}
+\item \code{runTests} which runs all the tests programmed. It has a
+  single option: \code{verbose = TRUE} by default.
+\item \code{listTests} which lists all the tests programmed as a data
+  frame.
+\item \code{fileTests} which lists the files used for each test.
+\item \code{fileTests} which displays the code of each test.
+\end{itemize}
+The last two functions have a mandatory option, \code{which}, to
+specify the number of the test as returned by \code{listTests}.
+
+Additionally, \phylobench\ has a predefined parameter named \code{eps}
+which is taken from the machine numerical characteristics and is
+defined as the smallest number $x$ so that $1+x\ne 1$ (see
+\code{?.Machine}):
+
+<<>>=
+library(phylobench)
+phylobench:::eps
+.Machine$double.eps
+@
+This value can be used when programming tests, although it is not
+exported by \phylobench.
+
+The tests themselves are programmed in R (see below). The files needed
+for the tests are provided with \phylobench. For simplicity, they are
+arranged into two subdirectories depending on their use during the tests:
+
+<<>>=
+dir(system.file("extdata/input", package = "phylobench"), recursive = TRUE)
+dir(system.file("extdata/output", package = "phylobench"), recursive = TRUE)
+@
+
+\section{Programming the Tests}
+
+Each test is performed by a function which has the following
+features:
+
+\begin{itemize}
+\item The function should have either no argument or have all its
+  arguments with default values, so that it will be executed with
+  something like \code{FUN()}.
+\item The function should return \code{"OK"} if the tests run as
+  expected.
+\item The name of the function should not start with a period so that
+  it is easily found (though it will not be exported).
+\end{itemize}
+
+Once the function has been added to the source of \phylobench\ as well
+as the data files (if any) in the appropriate directories, we need to
+update the (hidden) list of tests stored:
+
+<<>>=
+phylobench:::.list_of_tests
+@
+Note that the contents of this list is checked against the (non
+exported) functions present in the package during \code{R CMD check
+  phylobench}. An optional help page can be provided describing the
+benchmark.
+
+\section{Usage}
+
+We run all tests:
+
+<<>>=
+res <- runTests()
+str(res)
+@
+Then, we examine the files and the code of the third set of tests:
+
+<<>>=
+listTests()
+fileTests(3)
+codeTests(3)
+@
+Note that since the examples from this vignette were run in a
+temporary directory, the directories listed above will not be
+standard.
+
+\end{document}

@@ -1,0 +1,7 @@
+export(codeTests, fileTests, listTests, runTests)
+
+import(ape)
+
+importFrom(stats, cor, qnorm, runif)
+
+importFrom(utils, read.table)
