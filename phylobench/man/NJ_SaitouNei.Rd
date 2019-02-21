@@ -6,7 +6,7 @@
   and Nei (1987) using the small example provided in their paper. This
   simple case results in a NJ tree with all branch lengths
   integers. This tree is compared with the tree returned by the function
-  \code{\link{nj}}.
+  \code{\link[ape]{nj}}.
 }
 \usage{
 NJ_SaitouNei()

@@ -1,4 +1,4 @@
-## benchmarks_EP.R (2019-02-06)
+## benchmarks_EP.R (2019-02-21)
 
 ##   Phylogenetic Benchmarks
 
@@ -154,3 +154,26 @@ ULTRAMETRIC <- function(N = 100, n = c(5, 10, 20, 50, 100))
     "OK"
 }
 
+## Topological distances:
+TOPODIST <- function()
+{
+    fl <- system.file("extdata/input/Newick/three_unrooted_trees_4tips.tre",
+                      package = "phylobench")
+    TR <- read.tree(fl)
+    D <- dist.topo(TR)
+    if (length(D) == 3 && all(D == 2)) return("OK")
+    "not all distances equal to 3"
+}
+
+## Splits from unrooted trees:
+SPLITS <- function()
+{
+    fl <- system.file("extdata/input/Newick/three_unrooted_trees_4tips.tre",
+                      package = "phylobench")
+    TR <- read.tree(fl)
+    a <- summary(prop.part(TR))[-1]
+    b <- bitsplits(TR)$freq
+    if (length(a) == 3 && all(a == 1) && length(b) == 3 && all(b == 1))
+        return("OK")
+    "did not returned three splits with relative frequencies 1/3"
+}

@@ -1,3 +1,12 @@
+## phylobench.R (2019-02-21)
+
+##   Phylogenetic Benchmarks
+
+## Copyright 2019 Emmanuel Paradis
+
+## This file is part of the R-package `phylobench'.
+## See the file ../COPYING for licensing issues.
+
 .list_of_tests <- list("Branching times calculation" = "BTIMES",
                        "Base frequencies from DNA sequences" = "BF",
                        "Phylogenetically independent contrasts" = "PIC",
@@ -6,7 +15,9 @@
                        "Random coalescent trees" = "RCOAL",
                        "Random Yule trees" = "YULE",
                        "Type I error rate of the Mantel test" = "MANTEL",
-                       "Ultrametric trees" = "ULTRAMETRIC")
+                       "Ultrametric trees" = "ULTRAMETRIC",
+                       "Topological distances" = "TOPODIST",
+                       "Splits from unrooted trees" = "SPLITS")
 
 eps <- .Machine$double.eps
 

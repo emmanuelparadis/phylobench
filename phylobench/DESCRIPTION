@@ -1,6 +1,6 @@
 Package: phylobench
 Version: 0.1
-Date: 2019-02-06
+Date: 2019-02-21
 Title: Phylogenetic Benchmarks
 Authors@R: c(person("Emmanuel", "Paradis", role = c("aut", "cre", "cph"), email = "Emmanuel.Paradis@ird.fr", comment = c(ORCID = "0000-0003-3092-2199")))
 Depends: R (>= 3.2.0), ape
