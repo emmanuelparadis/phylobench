@@ -24,3 +24,11 @@ New benchmarks are added easily by:
 .list_of_tests <- list(...., "Title of the benchmark" = "FUN")
 ```
 - Optionally, create a file phylobench/man/FUN.Rd describing the new benchmark.
+
+If the benchmark requires files, these must be placed in phylobench/inst/extdata/.
+
+All the benchmarks are run when building the vignette, so they can be visualized once the package is installed with:
+
+```r
+vignette("PhylogeneticBenchmarks")
+```
