@@ -15,6 +15,7 @@ Currently, the implemented benchmarks are:
 - Ultrametric trees
 - Topological distances
 - Splits from unrooted trees
+- Reordering of the edge matrix
 
 New benchmarks are added easily by:
 
