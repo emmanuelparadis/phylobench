@@ -1,8 +1,8 @@
-## benchmarks_EP.R (2019-02-21)
+## benchmarks_EP.R (2021-04-20)
 
 ##   Phylogenetic Benchmarks
 
-## Copyright 2019 Emmanuel Paradis
+## Copyright 2019-2021 Emmanuel Paradis
 
 ## This file is part of the R-package `phylobench'.
 ## See the file ../COPYING for licensing issues.
@@ -162,7 +162,7 @@ TOPODIST <- function()
     TR <- read.tree(fl)
     D <- dist.topo(TR)
     if (length(D) == 3 && all(D == 2)) return("OK")
-    "not all distances equal to 3"
+    "not all distances equal to 2"
 }
 
 ## Splits from unrooted trees:
@@ -175,5 +175,40 @@ SPLITS <- function()
     b <- bitsplits(TR)$freq
     if (length(a) == 3 && all(a == 1) && length(b) == 3 && all(b == 1))
         return("OK")
-    "did not returned three splits with relative frequencies 1/3"
+    "did not return three splits with relative frequencies 1/3"
+}
+
+## Test reordering of edge matrix:
+REORDERPHYLO <- function(Nmin = 3L, Nmax = 1000L, ProbRooted = 0.5,
+                         ProbMultichotomy = 0.5, nrep = 1e4L)
+{
+    Ntip <- Nnode <- integer(nrep)
+    Rooted <- Test1 <- Test2 <- logical(nrep)
+
+    pm <- runif(nrep) > ProbMultichotomy
+
+    for (i in 1:nrep) {
+        n <- sample(Nmin:Nmax, 1L)
+        rooted <- sample(c(TRUE, FALSE), 1L, prob = c(ProbRooted, 1 - ProbRooted))
+        tr <- rtree(n, rooted)
+        if (pm[i]) {
+            if (n == 3 && !rooted) break
+            INTS <- which(tr$edge[, 2L] > n)
+            m <- length(INTS)
+            if (!m) break
+            k <- sample(INTS, ceiling(ProbMultichotomy * m))
+            tr$edge.length[k] <- 0
+            tr <- di2multi(tr)
+        }
+        Ntip[i] <- Ntip(tr)
+        Nnode[i] <- Nnode(tr)
+        Rooted[i] <- rooted
+        Test1[i] <- identical(reorder(reorder(tr, "pr"))$edge, tr$edge)
+        Test2[i] <- identical(reorder(reorder(tr, "po"))$edge, tr$edge)
+    }
+
+    res <- data.frame(Ntip = Ntip, Nnode = Nnode, Rooted = Rooted,
+                      Test1 = Test1, Test2 = Test2)
+
+    if (all(res$Test1) && all(res$Test2)) "OK" else res
 }

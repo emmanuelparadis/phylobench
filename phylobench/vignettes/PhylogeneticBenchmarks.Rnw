@@ -8,6 +8,7 @@
 \newcommand{\pkg}{\textsf}
 \newcommand{\ape}{\pkg{ape}}
 \newcommand{\phylobench}{\pkg{phylobench}}
+\newcommand{\R}{\pkg{R}}
 
 \author{Emmanuel Paradis}
 \title{Phylogenetic Benchmarks With \phylobench}
@@ -25,20 +26,19 @@ options(width=60)
 The package \phylobench\ has four functions:
 
 \begin{itemize}
-\item \code{runTests} which runs all the tests programmed. It has a
-  single option: \code{verbose = TRUE} by default.
-\item \code{listTests} which lists all the tests programmed as a data
-  frame.
+\item \code{runTests} which runs all the tests programmed in
+  \phylobench. It has a single option: \code{verbose = TRUE} by
+  default.
+\item \code{listTests} which lists all the tests programmed.
 \item \code{fileTests} which lists the files used for each test.
-\item \code{fileTests} which displays the code of each test.
+\item \code{codeTests} which displays the code of each test.
 \end{itemize}
 The last two functions have a mandatory option, \code{which}, to
 specify the number of the test as returned by \code{listTests}.
 
-Additionally, \phylobench\ has a predefined parameter named \code{eps}
-which is taken from the machine numerical characteristics and is
-defined as the smallest number $x$ so that $1+x\ne 1$ (see
-\code{?.Machine}):
+\phylobench\ has a predefined parameter named \code{eps} which is
+taken from the machine numerical characteristics and is defined as the
+smallest number $x$ so that $1+x\ne 1$ (see \code{?.Machine}):
 
 <<>>=
 library(phylobench)
@@ -48,14 +48,17 @@ phylobench:::eps
 This value can be used when programming tests, although it is not
 exported by \phylobench.
 
-The tests themselves are programmed in R (see below). The files needed
-for the tests are provided with \phylobench. For simplicity, they are
-arranged into two subdirectories depending on their use during the tests:
+The tests themselves are programmed in \R\ (see below). The files
+needed for the tests are included in \phylobench. They are arranged
+into two subdirectories depending on their use during the tests:
 
 <<>>=
 dir(system.file("extdata/input", package = "phylobench"), recursive = TRUE)
 dir(system.file("extdata/output", package = "phylobench"), recursive = TRUE)
 @
+The files in \code{"phylobench/extdata/input"} are used as input data for
+the tests, whereas the files in \code{"phylobench/extdata/output"} are
+used for comparisons with the results of the tests.
 
 \section{Programming the Tests}
 
@@ -66,15 +69,15 @@ features:
 \item The function should have either no argument or have all its
   arguments with default values, so that it will be executed with
   something like \code{FUN()}.
-\item The function should return \code{"OK"} if the tests run as
-  expected.
+\item The function should return the character string \code{"OK"} if
+  the tests run as expected.
 \item The name of the function should not start with a period so that
   it is easily found (though it will not be exported).
 \end{itemize}
 
 Once the function has been added to the source of \phylobench\ as well
-as the data files (if any) in the appropriate directories, we need to
-update the (hidden) list of tests stored:
+as the data files (if any), we need to update the list of tests in the
+package:
 
 <<>>=
 phylobench:::.list_of_tests
@@ -82,7 +85,9 @@ phylobench:::.list_of_tests
 Note that the contents of this list is checked against the (non
 exported) functions present in the package during \code{R CMD check
   phylobench}. An optional help page can be provided describing the
-benchmark.
+benchmark. These help pages can be used to give more or less
+detailed descriptions of the benchmarks which are then compiled in
+\phylobench's PDF manual.
 
 \section{Usage}
 

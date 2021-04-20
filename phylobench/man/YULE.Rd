@@ -2,7 +2,7 @@
 \alias{YULE}
 \title{Random Yule Trees}
 \description{
-  This benchmark simulated random phylogenies under the Yule model
+  This benchmark simulates random phylogenies under the Yule model
   (i.e., without extinction) with the function
   \code{\link[ape]{rlineage}}. The process is repeated \code{N} times
   and the number of species is extracted and the frequencies of these
@@ -21,8 +21,8 @@ YULE(N = 1000, lambda = 0.05, Tmax = 50, threshold = c(0.8, 1.2))
 }
 \arguments{
   \item{N}{the number of simulated trees.}
-  \item{lambda}{the value the of speciation rate.}
-  \item{Tmax}{the time span of the simulation.}
+  \item{lambda}{the value of speciation rate.}
+  \item{Tmax}{the timespan of the simulation.}
   \item{threshold}{the lower and upper bounds when comparing the
     observed and predicted numbers of species.}
 }

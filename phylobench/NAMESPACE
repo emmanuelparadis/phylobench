@@ -2,6 +2,6 @@ export(codeTests, fileTests, listTests, runTests)
 
 import(ape)
 
-importFrom(stats, cor, qnorm, runif)
+importFrom(stats, cor, qnorm, reorder, runif)
 
 importFrom(utils, read.table)

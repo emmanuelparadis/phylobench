@@ -7,7 +7,7 @@
   four, three, two, and one unit of time (from the root to the most
   recent node). The initial tree is stored in a Newick file. These
   values are compared with the values returned by the function
-  \code{\link{branching.times}}.
+  \code{\link[ape]{branching.times}}.
 }
 \usage{
 BTIMES()

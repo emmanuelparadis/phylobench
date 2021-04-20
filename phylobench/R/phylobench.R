@@ -1,8 +1,8 @@
-## phylobench.R (2019-02-21)
+## phylobench.R (2021-04-20)
 
 ##   Phylogenetic Benchmarks
 
-## Copyright 2019 Emmanuel Paradis
+## Copyright 2019-2021 Emmanuel Paradis
 
 ## This file is part of the R-package `phylobench'.
 ## See the file ../COPYING for licensing issues.
@@ -17,7 +17,8 @@
                        "Type I error rate of the Mantel test" = "MANTEL",
                        "Ultrametric trees" = "ULTRAMETRIC",
                        "Topological distances" = "TOPODIST",
-                       "Splits from unrooted trees" = "SPLITS")
+                       "Splits from unrooted trees" = "SPLITS",
+                       "Test reordering of edge matrix" = "REORDERPHYLO")
 
 eps <- .Machine$double.eps
 

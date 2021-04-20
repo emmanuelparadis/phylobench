@@ -7,8 +7,8 @@
   performed on two random square matrices of size \code{n} and is
   replicated \code{N} times. If more than 5\% of the tests are
   significant, this cycle (simulation + test) is repeated; otherwise
-  ``OK'' is returned. If after 200 cycles, there are always more than
-  5\% of significant tests are, an appropriate message is returned.
+  ``OK'' is returned. If after 200 cycles, there are more than 5\% of
+  significant tests, an appropriate message is returned.
 
   If at least one missing value (NA or NaN) is observed, an appropriate
   message is returned.

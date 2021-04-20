@@ -4,9 +4,9 @@
 \description{
   This benchmark assesses the topological distances between pairs of
   unrooted trees. Three trees are considered which represent the three
-  possible unrooted topologies with three tips. The distances are
+  possible unrooted topologies with four tips. The distances are
   calculated with the function \code{\link[ape]{dist.topo}}. If all
-  distances are equal to two, ``OK'' is returned.
+  distances are equal to 2, ``OK'' is returned.
 }
 \usage{
 TOPODIST()
