@@ -1,8 +1,8 @@
-## benchmarks_EP.R (2021-04-20)
+## benchmarks_EP.R (2023-02-02)
 
 ##   Phylogenetic Benchmarks
 
-## Copyright 2019-2021 Emmanuel Paradis
+## Copyright 2019-2023 Emmanuel Paradis
 
 ## This file is part of the R-package `phylobench'.
 ## See the file ../COPYING for licensing issues.
@@ -179,17 +179,19 @@ SPLITS <- function()
 }
 
 ## Test reordering of edge matrix:
-REORDERPHYLO <- function(Nmin = 3L, Nmax = 1000L, ProbRooted = 0.5,
-                         ProbMultichotomy = 0.5, nrep = 1e4L)
+REORDERPHYLO <- function(Nmin = 3, Nmax = 1000, ProbRooted = 0.5,
+                         ProbMultichotomy = 0.5, nrep = 1e4)
 {
     Ntip <- Nnode <- integer(nrep)
-    Rooted <- Test1 <- Test2 <- logical(nrep)
+    Test1 <- Test2 <- logical(nrep)
 
-    pm <- runif(nrep) > ProbMultichotomy
+    pm <- runif(nrep) < ProbMultichotomy
+    N <- ceiling(runif(nrep, Nmin, Nmax))
+    Rooted <- runif(nrep) < ProbRooted
 
     for (i in 1:nrep) {
-        n <- sample(Nmin:Nmax, 1L)
-        rooted <- sample(c(TRUE, FALSE), 1L, prob = c(ProbRooted, 1 - ProbRooted))
+        n <- N[i]
+        rooted <- Rooted[i]
         tr <- rtree(n, rooted)
         if (pm[i]) {
             if (n == 3 && !rooted) break
@@ -202,7 +204,6 @@ REORDERPHYLO <- function(Nmin = 3L, Nmax = 1000L, ProbRooted = 0.5,
         }
         Ntip[i] <- Ntip(tr)
         Nnode[i] <- Nnode(tr)
-        Rooted[i] <- rooted
         Test1[i] <- identical(reorder(reorder(tr, "pr"))$edge, tr$edge)
         Test2[i] <- identical(reorder(reorder(tr, "po"))$edge, tr$edge)
     }
