@@ -6,4 +6,4 @@ Authors@R: c(person("Emmanuel", "Paradis", role = c("aut", "cre", "cph"), email 
 Depends: R (>= 3.2.0), ape
 Description: Benchmarks for phylogenetic and comparative methods. The outputs from functions are compared to the expected results stored in files or calculated from theoretical expectations.
 License: GPL (>= 2)
-URL: http://ape-package.ird.fr/
+URL: https://github.com/emmanuelparadis/phylobench
